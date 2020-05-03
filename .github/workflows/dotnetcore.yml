@@ -1,4 +1,4 @@
-name: .NET Core
+name: Build Pull Request
 
 on:
   push:
@@ -19,10 +19,13 @@ jobs:
         dotnet-version: 3.1.101
     - name: Install dependencies
       run: dotnet restore
+      working-directory: "WebApplication1"
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build "WebApplication1.csproj" -c Release -o ./build --no-restore
+      working-directory: "WebApplication1"
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+      working-directory: "WebApplication1"
   
   docker:
     name: build docker image
@@ -30,5 +33,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Docker build
-        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+        run:  docker build -f ".\WebApplication1\Dockerfile" --label "created-by=GitHub-Pull-Reqeust" --label "project-name=WebApplication1" .
         continue-on-error: false
