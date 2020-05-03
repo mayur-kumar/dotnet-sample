@@ -23,5 +23,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PUBLISH_TOKEN }}
           registry: docker.pkg.github.com
-          repository: ideaqu/dotnet-sample
+          repository: mayur-kumar/dotnet-sample/dotnet-sample
           tag_with_ref: true
