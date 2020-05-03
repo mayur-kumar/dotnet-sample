@@ -31,5 +31,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Docker build
-        run:  docker build -f --label "created-by=GitHub-Pull-Reqeust" --label "project-name=WebApplication1" .
+        run:  docker build --label "created-by=GitHub-Pull-Reqeust" --label "project-name=WebApplication1" .
         continue-on-error: false
