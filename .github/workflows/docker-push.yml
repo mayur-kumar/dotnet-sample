@@ -1,0 +1,27 @@
+name: Push Docker Image
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          repository: mayurkumar0393/dotnet-sample
+          tag_with_ref: true
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.PUBLISH_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: ideaqu/dotnet-sample
+          tag_with_ref: true
